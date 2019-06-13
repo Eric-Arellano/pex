@@ -1404,7 +1404,7 @@ def test_reproducible_build_bdist_requirements():
 
 
 def test_reproducible_build_sdist_requirements():
-  assert_reproducible_build(['pycparser==2.19', '--no-wheel'], num_pexes=3)
+  assert_reproducible_build(['python-crontab==2.3.6'], num_pexes=3)
 
 
 def test_reproducible_build_m_flag():
