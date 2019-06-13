@@ -1352,7 +1352,7 @@ def assert_reproducible_build(args, num_pexes=2):
     # https://tox.readthedocs.io/en/latest/example/basic.html#special-handling-of-pythonhashseed.
     def create_pex(path, seed):
       result = run_pex_command(
-        args + ['-o', path, '--no-compile', '--no-use-system-time'],
+        args + ['-o', path, '--no-compile', '--no-use-system-time', '--disable-cache'],
         env=make_env(PYTHONHASHSEED=seed)
       )
       result.assert_success()
