@@ -1384,8 +1384,13 @@ def assert_reproducible_build(args, num_pexes=2):
     for pex1, pex2 in itertools.combinations(pexes, r=2):
       # First compare file-by-file for easier debugging.
       for member1, member2 in zip(pex_members[pex1], pex_members[pex2]):
+        # Check that each file has the same content.
+        with open(member1, "rb") as f1, open(member2, "rb") as f2:
+          assert list(f1.readlines()) == list(f2.readlines()), \
+            "{} and {} have different content.".format(member1, member2)
+        # Check that the entire file is equal, including metadata.
         assert filecmp.cmp(member1, member2, shallow=False)
-      # Then compare the original .pex files. This is the assertion we truly care about.
+      # Finally, check that the .pex files are byte-for-byte identical.
       assert filecmp.cmp(pex1, pex2, shallow=False)
 
 
